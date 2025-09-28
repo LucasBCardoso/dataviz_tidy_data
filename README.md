@@ -34,10 +34,12 @@ dataviz_tidy_data/
 ## 🚀 Como Executar
 
 ### Pré-requisitos
+
 - R (versão 4.0+)
 - Pacotes R: `tidyverse`, `readr`, `ggplot2`
 
 ### Instalação das Dependências R
+
 ```r
 install.packages(c("tidyverse", "readr", "ggplot2"))
 ```
@@ -45,17 +47,20 @@ install.packages(c("tidyverse", "readr", "ggplot2"))
 ### Execução da Análise
 
 #### Opção 1: Script Automático (Recomendado)
+
 ```bash
 chmod +x run_analysis.sh
 ./run_analysis.sh
 ```
 
 #### Opção 2: Comando R Direto
+
 ```bash
 Rscript data.r
 ```
 
 #### Opção 3: R Interativo
+
 ```r
 source("data.r")
 ```
@@ -63,6 +68,7 @@ source("data.r")
 ## 📋 Exercícios Implementados
 
 ### **Parte 1: Análise de `small_file.txt`**
+
 - ✅ Carregamento usando `read_delim()` com separador de tabulação
 - ✅ Inspeção dos dados com `head()`, `glimpse()`
 - ✅ Filtro de dados da categoria D usando `filter()`
@@ -70,6 +76,7 @@ source("data.r")
 - ✅ Cálculo de médias para categorias A e D com `mean()`
 
 ### **Parte 2: Tidy Data com `student_grade.csv`**
+
 - ✅ Identificação de colunas de anotação vs. medição
 - ✅ Análise do formato wide vs. tidy
 - ✅ Transformação usando `pivot_longer()`
@@ -92,12 +99,14 @@ O projeto gera automaticamente 7 visualizações profissionais:
 ## 🔍 Principais Conceitos Demonstrados
 
 ### Tidy Data Principles
+
 - **Cada variável** está em uma coluna
-- **Cada observação** está em uma linha  
+- **Cada observação** está em uma linha
 - **Cada valor** está em uma célula
 - **Cada tipo de unidade observacional** forma uma tabela
 
 ### Transformações de Dados
+
 - `pivot_longer()` - Wide para Long format
 - `filter()` - Filtrar observações
 - `arrange()` - Ordenar dados
@@ -105,6 +114,7 @@ O projeto gera automaticamente 7 visualizações profissionais:
 - `mutate()` - Criar novas variáveis
 
 ### Visualização de Dados
+
 - Boxplots para distribuições
 - Heatmaps para matrizes de dados
 - Violin plots para comparações
@@ -114,11 +124,13 @@ O projeto gera automaticamente 7 visualizações profissionais:
 ## 📊 Resultados e Insights
 
 ### Small File Analysis
+
 - **Categoria A**: Média de length = [valor calculado]
 - **Categoria D**: Média de length = [valor calculado]
 - Distribuição das categorias é balanceada
 
 ### Student Grades Analysis
+
 - **Q1**: Média e desvio padrão calculados
 - **Q2**: Média e desvio padrão calculados
 - Identificação das questões mais difíceis
@@ -152,4 +164,4 @@ Data: Setembro 2025
 
 ---
 
-*Este projeto demonstra a aplicação prática de conceitos fundamentais de ciência de dados, desde a limpeza até a visualização, seguindo as melhores práticas de código reproduzível e documentação clara.*
+_Este projeto demonstra a aplicação prática de conceitos fundamentais de ciência de dados, desde a limpeza até a visualização, seguindo as melhores práticas de código reproduzível e documentação clara._
