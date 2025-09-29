@@ -1,0 +1,783 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Relatório de Análise de Dados},
+  pdfauthor={Lucas Cardoso - 179737},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Relatório de Análise de Dados}
+\author{Lucas Cardoso - 179737}
+\date{29 September, 2025}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\section{Análise de Dados - Tidyng
+Data}\label{anuxe1lise-de-dados---tidyng-data}
+
+\subsection{\texorpdfstring{PARTE 1: Análise do Arquivo
+\texttt{small\_file.txt}}{PARTE 1: Análise do Arquivo small\_file.txt}}\label{parte-1-anuxe1lise-do-arquivo-small_file.txt}
+
+\subsubsection{Carregamento e Inspeção dos
+Dados}\label{carregamento-e-inspeuxe7uxe3o-dos-dados}
+
+Carregando o arquivo tab delimited:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my.data }\OtherTok{\textless{}{-}} \FunctionTok{read\_delim}\NormalTok{(file\_small, }\AttributeTok{delim =} \StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{"}\NormalTok{, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Dados carregados com sucesso!}
+
+\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Dados carregados com sucesso!
+\end{verbatim}
+
+Primeiras 6 linhas (\texttt{head()}):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(my.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##   Sample Length Category
+##   <chr>   <dbl> <chr>   
+## 1 x_1        45 A       
+## 2 x_2        82 B       
+## 3 x_3        81 C       
+## 4 x_4        56 D       
+## 5 x_5        96 A       
+## 6 x_6        85 B
+\end{verbatim}
+
+Estrutura (\texttt{glimpse()}):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{glimpse}\NormalTok{(my.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 40
+## Columns: 3
+## $ Sample   <chr> "x_1", "x_2", "x_3", "x_4", "x_5", "x_6", "x_7", "x_8", "x_9", "x_~
+## $ Length   <dbl> 45, 82, 81, 56, 96, 85, 65, 96, 60, 62, 80, 63, 50, 64, 43, 98, 78~
+## $ Category <chr> "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "~
+\end{verbatim}
+
+\subsubsection{Filtros e Análises
+Estatísticas}\label{filtros-e-anuxe1lises-estatuxedsticas}
+
+Filtrando e ordenando dados:
+
+Linhas da \textbf{Categoria D}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{category\_d }\OtherTok{\textless{}{-}}\NormalTok{ my.data }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(Category }\SpecialCharTok{==} \StringTok{"D"}\NormalTok{)}
+\NormalTok{category\_d}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 10 x 3
+##    Sample Length Category
+##    <chr>   <dbl> <chr>   
+##  1 x_4        56 D       
+##  2 x_8        96 D       
+##  3 x_12       63 D       
+##  4 y_3        98 D       
+##  5 y_7        79 D       
+##  6 y_11       65 D       
+##  7 z_2        83 D       
+##  8 z_6        72 D       
+##  9 z_10       84 D       
+## 10 z_14       93 D
+\end{verbatim}
+
+Linhas da Categoria D ordenadas por Length:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{category\_d\_ordered }\OtherTok{\textless{}{-}}\NormalTok{ my.data }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(Category }\SpecialCharTok{==} \StringTok{"D"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(Length)}
+\NormalTok{category\_d\_ordered}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 10 x 3
+##    Sample Length Category
+##    <chr>   <dbl> <chr>   
+##  1 x_4        56 D       
+##  2 x_12       63 D       
+##  3 y_11       65 D       
+##  4 z_6        72 D       
+##  5 y_7        79 D       
+##  6 z_2        83 D       
+##  7 z_10       84 D       
+##  8 z_14       93 D       
+##  9 x_8        96 D       
+## 10 y_3        98 D
+\end{verbatim}
+
+Cálculo das médias de Length:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean\_length\_d }\OtherTok{\textless{}{-}}\NormalTok{ my.data }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(Category }\SpecialCharTok{==} \StringTok{"D"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(Length) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mean}\NormalTok{()}
+
+\NormalTok{mean\_length\_a }\OtherTok{\textless{}{-}}\NormalTok{ my.data }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(Category }\SpecialCharTok{==} \StringTok{"A"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(Length) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mean}\NormalTok{()}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Média do Length para categoria D:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(mean\_length\_d, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Média do Length para categoria D: 78.9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Média do Length para categoria A:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(mean\_length\_a, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Média do Length para categoria A: 68.3
+\end{verbatim}
+
+\subsubsection{Visualizações
+(small\_file.txt)}\label{visualizauxe7uxf5es-small_file.txt}
+
+\paragraph{Distribuição de Length por Categoria
+(Boxplot)}\label{distribuiuxe7uxe3o-de-length-por-categoria-boxplot}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(my.data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Category, }\AttributeTok{y =}\NormalTok{ Length, }\AttributeTok{fill =}\NormalTok{ Category)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Distribuição de Length por Categoria"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"small\_file.txt"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Categoria"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Length"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(p1)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{/Users/lucascardoso/Desktop/DATAVIZ/task 3/dataviz_tidy_data/analysis_report_files/figure-latex/parte1-visualization-1-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ggsave("plots/length\_by\_category\_boxplot.png", p1, width = 8, height = 6, dpi = 300)}
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{Média de Length por Categoria
+(Barras)}\label{muxe9dia-de-length-por-categoria-barras}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{means\_data }\OtherTok{\textless{}{-}}\NormalTok{ my.data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Category) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{mean\_length =} \FunctionTok{mean}\NormalTok{(Length), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{)}
+
+\NormalTok{p2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(means\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Category, }\AttributeTok{y =}\NormalTok{ mean\_length, }\AttributeTok{fill =}\NormalTok{ Category)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.8}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{round}\NormalTok{(mean\_length, }\DecValTok{1}\NormalTok{)), }\AttributeTok{vjust =} \SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Média de Length por Categoria"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"small\_file.txt"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Categoria"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Média do Length"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(p2)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{/Users/lucascardoso/Desktop/DATAVIZ/task 3/dataviz_tidy_data/analysis_report_files/figure-latex/parte1-visualization-2-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ggsave("plots/mean\_length\_by\_category.png", p2, width = 8, height = 6, dpi = 300)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{\texorpdfstring{PARTE 2: Análise e Tyding do Arquivo
+\texttt{student\_grade.csv}}{PARTE 2: Análise e Tyding do Arquivo student\_grade.csv}}\label{parte-2-anuxe1lise-e-tyding-do-arquivo-student_grade.csv}
+
+\subsubsection{Carregamento e
+Inspeção}\label{carregamento-e-inspeuxe7uxe3o}
+
+Carregando os dados de notas dos estudantes:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{student\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(file\_student, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Primeiras 6 linhas dos dados originais:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(student\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 14
+##    Year Class   Student      Q1    Q2    Q3    Q4    Q5    Q6    Q7    Q8    Q9   Q10
+##   <dbl> <chr>   <chr>     <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+## 1  2022 Student Lucca      7.5   6.23  6.5   7.15 NA     5.43  8.58  8.19  7.96  7.92
+## 2  2022 Student Salles    10    10    10    10    10    NA    10    10    10    10   
+## 3  2022 Student Bueno      9.5   9     9     9.25  9.25  8     9.75  9.75  7.5   7.25
+## 4  2022 Student Simas      9.5   9     9     9.25  9.25  8     9.75  9.75  7.5   7.25
+## 5  2022 Student Goncalves  1.67  3.17  4.67  1.67  4     1.67  4.83  0.83  0.83  1.67
+## 6  2022 Student Dornelles  9.1   8.75  9.83  9     9.75  9     9.5   9.25  9     9.18
+## # i 1 more variable: Q11 <dbl>
+\end{verbatim}
+
+\subsubsection{Análise do Formato dos
+Dados}\label{anuxe1lise-do-formato-dos-dados}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"• Dimensões dos dados:"}\NormalTok{, }\FunctionTok{dim}\NormalTok{(student\_data), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## • Dimensões dos dados: 43 14
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"• Colunas:"}\NormalTok{, }\FunctionTok{colnames}\NormalTok{(student\_data), }\StringTok{"}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## • Colunas: Year Class Student Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 Q10 Q11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"• **Quais colunas são anotações e quais são medições?**}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## • **Quais colunas são anotações e quais são medições?**
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  {-} Anotações: Year, Class, Student (identificadores)}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   - Anotações: Year, Class, Student (identificadores)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  {-} Medições: Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11 (notas das questões)}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   - Medições: Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11 (notas das questões)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"• **Quantos tipos diferentes de medição existem?**}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## • **Quantos tipos diferentes de medição existem?**
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  {-} 1 tipo: Notas/pontuações das questões (todas são do mesmo tipo)}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   - 1 tipo: Notas/pontuações das questões (todas são do mesmo tipo)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"• **Todas as medições do mesmo tipo estão em uma única coluna?**}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## • **Todas as medições do mesmo tipo estão em uma única coluna?**
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  {-} NÃO. As notas estão espalhadas em 11 colunas (Q1 a Q11). Os dados estão em formato *wide*.}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   - NÃO. As notas estão espalhadas em 11 colunas (Q1 a Q11). Os dados estão em formato *wide*.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"• **Qual é o nome da variável sendo medida?**}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## • **Qual é o nome da variável sendo medida?**
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  {-} \textquotesingle{}Grade\textquotesingle{} ou \textquotesingle{}Nota\textquotesingle{} (pontuação obtida pelo estudante)}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   - 'Grade' ou 'Nota' (pontuação obtida pelo estudante)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"• **O nome da variável está em uma coluna?**}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## • **O nome da variável está em uma coluna?**
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  {-} NÃO. Os nomes estão nos cabeçalhos das colunas (Q1, Q2, etc.)}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   - NÃO. Os nomes estão nos cabeçalhos das colunas (Q1, Q2, etc.)
+\end{verbatim}
+
+\subsubsection{Transformação para Formato
+Tidy}\label{transformauxe7uxe3o-para-formato-tidy}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{student\_tidy }\OtherTok{\textless{}{-}}\NormalTok{ student\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# Transformar de wide para long format}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =}\NormalTok{ Q1}\SpecialCharTok{:}\NormalTok{Q11, }
+               \AttributeTok{names\_to =} \StringTok{"Question"}\NormalTok{, }
+               \AttributeTok{values\_to =} \StringTok{"Grade"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# Remover linhas com valores NA}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(Grade)) }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# Remover colunas com informação repetida (se houver)}
+  \FunctionTok{select}\NormalTok{(Year, Class, Student, Question, Grade)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Dados em formato tidy (primeiras 10 linhas):}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Dados em formato tidy (primeiras 10 linhas):
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(student\_tidy, }\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 10 x 5
+##     Year Class   Student Question Grade
+##    <dbl> <chr>   <chr>   <chr>    <dbl>
+##  1  2022 Student Lucca   Q1        7.5 
+##  2  2022 Student Lucca   Q2        6.23
+##  3  2022 Student Lucca   Q3        6.5 
+##  4  2022 Student Lucca   Q4        7.15
+##  5  2022 Student Lucca   Q6        5.43
+##  6  2022 Student Lucca   Q7        8.58
+##  7  2022 Student Lucca   Q8        8.19
+##  8  2022 Student Lucca   Q9        7.96
+##  9  2022 Student Lucca   Q10       7.92
+## 10  2022 Student Lucca   Q11       6.48
+\end{verbatim}
+
+\subsubsection{Estatísticas e
+Performance}\label{estatuxedsticas-e-performance}
+
+Estatísticas das Questões 1 e 2:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{q1\_q2\_stats }\OtherTok{\textless{}{-}}\NormalTok{ student\_tidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Question }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Q1"}\NormalTok{, }\StringTok{"Q2"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Question) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{mean\_grade =} \FunctionTok{mean}\NormalTok{(Grade, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{sd\_grade =} \FunctionTok{sd}\NormalTok{(Grade, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{n\_students =} \FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{.groups =} \StringTok{"drop"}
+\NormalTok{  )}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Estatísticas Q1 e Q2:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Estatísticas Q1 e Q2:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(q1\_q2\_stats)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 4
+##   Question mean_grade sd_grade n_students
+##   <chr>         <dbl>    <dbl>      <int>
+## 1 Q1             8.50     1.61         43
+## 2 Q2             7.95     1.62         43
+\end{verbatim}
+
+Dificuldade das Questões (ordenado da mais difícil para a mais fácil
+pela média):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{question\_difficulty }\OtherTok{\textless{}{-}}\NormalTok{ student\_tidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Question) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{mean\_grade =} \FunctionTok{mean}\NormalTok{(Grade),}
+    \AttributeTok{sd\_grade =} \FunctionTok{sd}\NormalTok{(Grade),}
+    \AttributeTok{n\_students =} \FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{.groups =} \StringTok{"drop"}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(mean\_grade)}
+
+\FunctionTok{print}\NormalTok{(question\_difficulty)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 11 x 4
+##    Question mean_grade sd_grade n_students
+##    <chr>         <dbl>    <dbl>      <int>
+##  1 Q6             7.32     1.93         41
+##  2 Q2             7.95     1.62         43
+##  3 Q11            8.02     1.72         43
+##  4 Q4             8.18     1.63         43
+##  5 Q10            8.18     1.61         43
+##  6 Q5             8.30     1.48         42
+##  7 Q9             8.37     1.67         43
+##  8 Q8             8.39     1.73         43
+##  9 Q1             8.50     1.61         43
+## 10 Q3             8.57     1.38         42
+## 11 Q7             9.04     1.16         43
+\end{verbatim}
+
+Performance geral por estudante:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{student\_performance }\OtherTok{\textless{}{-}}\NormalTok{ student\_tidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Student) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{mean\_grade =} \FunctionTok{mean}\NormalTok{(Grade),}
+    \AttributeTok{n\_questions =} \FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{.groups =} \StringTok{"drop"}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(mean\_grade))}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Top 5 estudantes por média geral:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Top 5 estudantes por média geral:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(student\_performance, }\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 3
+##   Student   mean_grade n_questions
+##   <chr>          <dbl>       <int>
+## 1 Junior         10             10
+## 2 Salles         10             10
+## 3 Pedro           9.81          11
+## 4 Gabriel         9.70          11
+## 5 Francisca       9.64          11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{Bottom 5 estudantes por média geral:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Bottom 5 estudantes por média geral:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tail}\NormalTok{(student\_performance, }\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 3
+##   Student   mean_grade n_questions
+##   <chr>          <dbl>       <int>
+## 1 Rafaela         6.92          11
+## 2 Ramos           6.13          11
+## 3 Samara          5.48          11
+## 4 Gleiser         4.42          11
+## 5 Goncalves       2.43          11
+\end{verbatim}
+
+\subsubsection{Visualizações
+(student\_grade.csv)}\label{visualizauxe7uxf5es-student_grade.csv}
+
+\paragraph{Distribuição das Notas por Questão
+(Boxplot)}\label{distribuiuxe7uxe3o-das-notas-por-questuxe3o-boxplot}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p3 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(student\_tidy, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Question, }\AttributeTok{y =}\NormalTok{ Grade, }\AttributeTok{fill =}\NormalTok{ Question)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Distribuição das Notas por Questão"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"student\_grade.csv {-} Dados Tidy"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Questão"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Nota"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{))}
+
+\FunctionTok{print}\NormalTok{(p3)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{/Users/lucascardoso/Desktop/DATAVIZ/task 3/dataviz_tidy_data/analysis_report_files/figure-latex/parte2-visualization-1-1.pdf}}
+
+\paragraph{Dificuldade das Questões
+(Barras)}\label{dificuldade-das-questuxf5es-barras}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p5 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(question\_difficulty, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(Question, mean\_grade), }\AttributeTok{y =}\NormalTok{ mean\_grade)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{fill =} \StringTok{"steelblue"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.8}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{round}\NormalTok{(mean\_grade, }\DecValTok{2}\NormalTok{)), }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Dificuldade das Questões"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Média das notas por questão (ordenado da mais difícil para a mais fácil)"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Questão"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Média das Notas"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+
+\FunctionTok{print}\NormalTok{(p5)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{/Users/lucascardoso/Desktop/DATAVIZ/task 3/dataviz_tidy_data/analysis_report_files/figure-latex/parte2-visualization-2-1.pdf}}
+
+\paragraph{Heatmap de Performance dos
+Estudantes}\label{heatmap-de-performance-dos-estudantes}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{grade\_heatmap\_data }\OtherTok{\textless{}{-}}\NormalTok{ student\_tidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(Student, Question)}
+
+\NormalTok{p6 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(grade\_heatmap\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Question, }\AttributeTok{y =}\NormalTok{ Student, }\AttributeTok{fill =}\NormalTok{ Grade)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_tile}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_gradient2}\NormalTok{(}\AttributeTok{low =} \StringTok{"red"}\NormalTok{, }\AttributeTok{mid =} \StringTok{"yellow"}\NormalTok{, }\AttributeTok{high =} \StringTok{"green"}\NormalTok{, }
+                       \AttributeTok{midpoint =} \DecValTok{5}\NormalTok{, }\AttributeTok{name =} \StringTok{"Nota"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Heatmap de Performance dos Estudantes"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Notas por estudante e questão"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Questão"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Estudante"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{6}\NormalTok{),}
+        \AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))}
+
+\FunctionTok{print}\NormalTok{(p6)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{/Users/lucascardoso/Desktop/DATAVIZ/task 3/dataviz_tidy_data/analysis_report_files/figure-latex/parte2-visualization-3-1.pdf}}
+
+\paragraph{Comparação Q1 vs Q2}\label{comparauxe7uxe3o-q1-vs-q2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{q1\_q2\_data }\OtherTok{\textless{}{-}}\NormalTok{ student\_tidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Question }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Q1"}\NormalTok{, }\StringTok{"Q2"}\NormalTok{))}
+
+\NormalTok{p7 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(q1\_q2\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Question, }\AttributeTok{y =}\NormalTok{ Grade, }\AttributeTok{fill =}\NormalTok{ Question)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.9}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_summary}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ mean, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{, }\AttributeTok{shape =} \DecValTok{23}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Comparação entre Q1 e Q2"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Distribuição das notas com médias destacadas"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Questão"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Nota"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(p7)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{/Users/lucascardoso/Desktop/DATAVIZ/task 3/dataviz_tidy_data/analysis_report_files/figure-latex/parte2-visualization-4-1.pdf}}
+
+FIM DO RELATÓRIO
+
+\end{document}

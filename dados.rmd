@@ -1,0 +1,171 @@
+---
+title: "DATAVIZ Task 3"
+author: "Lucas Cardoso - 179737"
+date: "`r format(Sys.Date(), '%d %B, %Y')`"
+output: 
+  pdf_document:
+    toc: true
+    number_sections: true
+fontsize: 11pt
+geometry: margin=1in
+---
+
+```{r setup, include=FALSE}
+# =============================================================================
+# Setup
+# =============================================================================
+library(tidyverse)
+library(ggplot2)
+library(readr)
+
+# Limpar ambiente
+rm(list = ls())
+
+# Caminho para os arquivos
+setwd("/Users/lucascardoso/Desktop/DATAVIZ/task 3/dataviz_tidy_data")
+
+```
+
+```{r}
+# Carregando arquivo
+small_file <- read_delim("small_file.txt", delim = "\t")
+message("Dados de small_file.txt carregados com sucesso!")
+
+# Inspeção
+head(small_file)
+glimpse(small_file)
+```
+
+```{r}
+# Filtrar Categoria D e ordenar
+category_d <- small_file %>% filter(Category == "D") %>% arrange(Length)
+category_d
+
+# Médias
+mean_length_d <- mean(category_d$Length)
+mean_length_a <- mean(small_file %>% filter(Category == "A") %>% pull(Length))
+message("Média do Length para categoria D: ", round(mean_length_d, 2))
+message("Média do Length para categoria A: ", round(mean_length_a, 2))
+```
+
+```{r}
+ggplot(small_file, aes(x = Category, y = Length, fill = Category)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.2, alpha = 0.6) +
+  labs(title = "Distribuição de Length por Categoria",
+       x = "Categoria", y = "Length") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+```{r}
+means_data <- small_file %>%
+  group_by(Category) %>%
+  summarise(mean_length = mean(Length), .groups = "drop")
+
+ggplot(means_data, aes(x = Category, y = mean_length, fill = Category)) +
+  geom_col(alpha = 0.8) +
+  geom_text(aes(label = round(mean_length, 1)), vjust = -0.5) +
+  labs(title = "Média de Length por Categoria",
+       x = "Categoria", y = "Média do Length") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+```{r}
+student_data <- read_csv("student_grade.csv")
+message("Dados de student_grade.csv carregados com sucesso!")
+```
+
+```{r}
+head(student_data)
+dim(student_data)
+colnames(student_data)
+```
+
+```{r}
+student_tidy <- student_data %>%
+  pivot_longer(cols = Q1:Q11, names_to = "Question", values_to = "Grade") %>%
+  filter(!is.na(Grade)) %>%
+  select(Year, Class, Student, Question, Grade)
+head(student_tidy, 10)
+```
+
+```{r}
+# Q1 e Q2
+q1_q2_stats <- student_tidy %>%
+  filter(Question %in% c("Q1", "Q2")) %>%
+  group_by(Question) %>%
+  summarise(mean_grade = mean(Grade), sd_grade = sd(Grade), n_students = n(), .groups="drop")
+q1_q2_stats
+```
+
+```{r}
+# Performance geral
+student_performance <- student_tidy %>%
+  group_by(Student) %>%
+  summarise(mean_grade = mean(Grade), n_questions = n(), .groups="drop") %>%
+  arrange(desc(mean_grade))
+head(student_performance, 5)
+tail(student_performance, 5)
+
+# Dificuldade das questões
+question_difficulty <- student_tidy %>%
+  group_by(Question) %>%
+  summarise(mean_grade = mean(Grade), sd_grade = sd(Grade), n_students = n(), .groups="drop") %>%
+  arrange(mean_grade)
+question_difficulty
+```
+
+```{r}
+ggplot(student_tidy, aes(x = Question, y = Grade, fill = Question)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position="none") +
+  labs(title="Distribuição das Notas por Questão", x="Questão", y="Nota") +
+  scale_y_continuous(limits=c(0,10))
+```
+
+```{r}
+top_bottom_students <- rbind(
+  head(student_performance, 10) %>% mutate(group="Top 10"),
+  tail(student_performance, 10) %>% mutate(group="Bottom 10")
+)
+ggplot(top_bottom_students, aes(x=reorder(Student, mean_grade), y=mean_grade, fill=group)) +
+  geom_col(alpha=0.8) +
+  coord_flip() +
+  facet_wrap(~group, scales="free_y") +
+  labs(title="Performance dos Estudantes", x="Estudante", y="Média Geral") +
+  theme_minimal() +
+  theme(legend.position="none")
+```
+
+```{r}
+ggplot(question_difficulty, aes(x=reorder(Question, mean_grade), y=mean_grade)) +
+  geom_col(fill="steelblue", alpha=0.8) +
+  geom_text(aes(label=round(mean_grade,2)), hjust=-0.1) +
+  coord_flip() +
+  labs(title="Dificuldade das Questões", x="Questão", y="Média das Notas") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(student_tidy, aes(x=Question, y=Student, fill=Grade)) +
+  geom_tile(color="white") +
+  scale_fill_gradient2(low="red", mid="yellow", high="green", midpoint=5, name="Nota") +
+  labs(title="Heatmap de Performance dos Estudantes", x="Questão", y="Estudante") +
+  theme_minimal() +
+  theme(axis.text.y=element_text(size=6), axis.text.x=element_text(angle=45,hjust=1))
+```
+
+```{r}
+q1_q2_data <- student_tidy %>% filter(Question %in% c("Q1","Q2"))
+ggplot(q1_q2_data, aes(x=Question, y=Grade, fill=Question)) +
+  geom_violin(alpha=0.7) +
+  geom_boxplot(width=0.2, alpha=0.9) +
+  stat_summary(fun=mean, geom="point", shape=23, size=3, fill="white") +
+  labs(title="Comparação entre Q1 e Q2", x="Questão", y="Nota") +
+  theme_minimal() +
+  theme(legend.position="none")
+```
+
